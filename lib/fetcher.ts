@@ -1,7 +1,7 @@
 export default function fetcher(url: string, data = undefined) {
   return fetch(`${window.location.origin}/api/${url}`, {
     method: data ? "POST" : "GET",
-    credentials: "inlcude", // makes sure cookie are sent up for the json web token etc
+    credentials: "include", // makes sure cookie are sent up for the json web token etc
     headers: {
       "Content-Type": "application/json",
     },

@@ -1,0 +1,63 @@
+import { Box, Flex, Input, Button, color } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useSWRConfig } from "swr"; // it handles data fetching very nicely handles caching,  optimistic updates, also handles refetching and revalidating the cache
+// we are going to use it to update the local cache of this application which we previously get done using redux or apollo client
+import NextImage from 'next/image'
+import { auth } from "../lib/mutations";
+
+const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    await auth(mode, { email, password })
+    setIsLoading(false)
+    router.push('/')
+  }
+  return (
+    <Box height="100vh" width="100vw" bg="black" color="white">
+      <Flex
+        justify="center"
+        align="center"
+        height="100px"
+        borderBottom="white 1px solid"
+      >
+        <NextImage src="/logo.svg" height={60} width={120} />
+      </Flex>
+      <Flex justify="center" align="center" height="calc(100vh - 100px)">
+        <form onSubmit={handleSubmit}>
+          <Input
+            placeholder="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            bg="green.500"
+            isLoading={isLoading}
+            sx={{
+              '&:hover': {
+                bg: 'green.300',
+              },
+            }}
+          >
+            {mode}
+          </Button>
+        </form>
+      </Flex>
+    </Box>
+  );
+};
+
+export default AuthForm;
