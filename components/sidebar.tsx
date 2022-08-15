@@ -18,6 +18,7 @@ import {
     MdPlaylistAdd,
     MdFavorite,
 } from "react-icons/md";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
     {
@@ -50,8 +51,9 @@ const musicMenu = [
     },
 ];
 
-const playLists = new Array(30).fill(1).map((_,i) => `Playlist ${i + 1}`)
 const Sidebar = () => {
+    const { playlists } = usePlaylist();
+
     return (
         <Box
             width="100%"
@@ -107,14 +109,14 @@ const Sidebar = () => {
                 <Divider color='gray.900' />
                 {/* here goes our scrollable playlist */}
                 {/* auto means we will scrollbar visible */}
-                <Box height="60%" overflow="auto" paddingY='20px'> 
+                <Box height="60%" overflow="auto" paddingY='20px'>
                     <List spacing={2}>
-                        {playLists.map(playList => (
-                            <ListItem paddingX='20px' key={playList}>
+                        {playlists.map(palylist => (
+                            <ListItem paddingX='20px' key={palylist.id}>
                                 <LinkBox>
                                     <NextLink href='/' passHref>
                                         <LinkOverlay>
-                                            {playList}
+                                            {palylist.name}
                                         </LinkOverlay>
                                     </NextLink>
                                 </LinkBox>
