@@ -1,12 +1,10 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import GradientLayout from "../components/gradientLayout";
 
-const Home = () => {
+const Home = (props) => {
   return (
-    <div>
-      Home
-    </div>
+    <GradientLayout color="green">
+      <div>Home Page</div>
+    </GradientLayout>
   );
 };
 
