@@ -24,6 +24,15 @@ const GradientLayout = ({
             borderRadius={roundImage ? "100%" : "3px"}
           />
         </Box>
+        <Box padding="20px" lineHeight="40px" color="white">
+          <Text fontSize="x-small" fontWeight="bold" casing="uppercase">
+            {subtitle}
+          </Text>
+          <Text fontSize="6xl">{title}</Text>
+          <Text fontSize="x-small" fontWeight="100">
+            {description}
+          </Text>
+        </Box>
       </Flex>
     </Box>
   );
