@@ -111,11 +111,17 @@ const Sidebar = () => {
         {/* auto means we will scrollbar visible */}
         <Box height="60%" overflow="auto" paddingY="20px">
           <List spacing={2}>
-            {playlists.map((palylist) => (
-              <ListItem paddingX="20px" key={palylist.id}>
+            {playlists.map((playlist) => (
+              <ListItem paddingX="20px" key={playlist.id}>
                 <LinkBox>
-                  <NextLink href="/" passHref>
-                    <LinkOverlay>{palylist.name}</LinkOverlay>
+                  <NextLink
+                    href={{
+                      pathname: "/playlist/[id]",
+                      query: { id: playlist.id },
+                    }}
+                    passHref
+                  >
+                    <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>
