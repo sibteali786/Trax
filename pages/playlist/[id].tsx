@@ -46,8 +46,8 @@ const getBGColor = (id) => {
 };
 
 const Playlist = ({
-  playlist,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+      playlist,
+    }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const color = getBGColor(playlist.id);
 
   return (
@@ -59,7 +59,7 @@ const Playlist = ({
       description={`${playlist.songs.length} songs`}
       image={`https://picsum.photos/400?random=${playlist.id}`}
     >
-      <SongTable />
+      <SongTable songs={playlist.songs} />
     </GradientLayout>
   );
 };

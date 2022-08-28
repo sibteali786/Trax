@@ -24,3 +24,17 @@ a {
     background: black;
   }
 }
+
+html::-webkit-scrollbar {
+    width: 12px;
+}
+html::-webkit-scrollbar-track {
+    background-color: #FAD5A5;
+    border-radius: 100px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: #252C33;
+    border-radius: 100px;
+    border: 2px solid #FAD5A5;
+}
