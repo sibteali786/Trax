@@ -34,10 +34,6 @@ export const validateRoute = (handler) => {
 };
 
 export const validateToken = (token) => {
-  try {
-    const user = jwt.verify(token, "hello");
-    return user;
-  } catch (error) {
-    return null;
-  }
+  const user = jwt.verify(token, "hello");
+  return user;
 };

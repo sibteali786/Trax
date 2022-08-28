@@ -5,11 +5,22 @@ import GradientLayout from "../../components/gradientLayout";
 import SongTable from "../../components/songsTable";
 
 export const getServerSideProps = async ({ query, req }) => {
-  const { id } = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+  let user;
+
+  try {
+    user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+  } catch (error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/signin",
+      },
+    };
+  }
   const [playlist] = await prisma.playlist.findMany({
     where: {
       id: +query.id, // the names comes from filename [id].tsx insdie sqaure brackets
-      userId: id, // should have userId same as what returned by playlist.
+      userId: user.id, // should have userId same as what returned by playlist.
     },
     include: {
       songs: {
@@ -46,8 +57,8 @@ const getBGColor = (id) => {
 };
 
 const Playlist = ({
-      playlist,
-    }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  playlist,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const color = getBGColor(playlist.id);
 
   return (
