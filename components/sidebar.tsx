@@ -2,12 +2,17 @@
 import NextImage from "next/image";
 import NextLink from "next/link";
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
+import {
   Box,
   List,
   ListItem,
   ListIcon,
   Divider,
-  Center,
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/layout";
@@ -52,7 +57,25 @@ const musicMenu = [
 ];
 
 const Sidebar = () => {
-  const { playlists, isError, isLoading } = usePlaylist();
+  const { playlists } = usePlaylist();
+
+  if (playlists.error === "Not Authorizied") {
+    return (
+      <Alert
+        height="100vh"
+        status="error"
+        variant="solid"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <AlertIcon boxSize={10} />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>{playlists.error}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <Box

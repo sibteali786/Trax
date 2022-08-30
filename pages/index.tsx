@@ -1,6 +1,12 @@
 import { InferGetServerSidePropsType } from "next";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Image,
+} from "@chakra-ui/react";
 import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
 import { useMe } from "../lib/hooks";
@@ -16,6 +22,29 @@ const Home = ({
   artists,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { user } = useMe();
+  console.log(user);
+
+  if (user !== undefined && user.error === "Not Authorizied") {
+    return (
+      <Alert
+        height="100vh"
+        status="error"
+        variant="subtle"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <AlertIcon boxSize={20} />
+        <AlertTitle mt={4} mb={4} fontSize="4xl">
+          Error
+        </AlertTitle>
+        <AlertDescription fontSize="2xl">
+          {`${user.error} Please Login to continue`}
+        </AlertDescription>
+      </Alert>
+    );
+  }
   return (
     <GradientLayout
       roundImage
