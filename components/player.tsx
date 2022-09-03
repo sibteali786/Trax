@@ -17,7 +17,6 @@ import {
   MdSkipPrevious,
   MdSkipNext,
   MdOutlinePlayCircleFilled,
-  MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
   MdPause,
 } from "react-icons/md";
